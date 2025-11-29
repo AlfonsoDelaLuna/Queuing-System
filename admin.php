@@ -12,6 +12,10 @@
         <header>
             <h1>Queue Management</h1>
             <p>Staff Control Panel</p>
+            <div class="counter-settings" style="margin-top: 1rem;">
+                <label for="counterName" style="color: var(--text-secondary); margin-right: 0.5rem;">My Counter:</label>
+                <input type="text" id="counterName" placeholder="e.g. Counter 1" style="padding: 0.5rem; border-radius: 0.5rem; border: 1px solid var(--border-color); background: var(--bg-secondary); color: var(--text-primary);">
+            </div>
         </header>
 
         <div class="card">

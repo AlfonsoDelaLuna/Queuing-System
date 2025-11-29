@@ -55,6 +55,10 @@ switch ($method) {
             $fields[] = "name = ?";
             $params[] = $data['name'];
         }
+        if (isset($data['served_by'])) {
+            $fields[] = "served_by = ?";
+            $params[] = $data['served_by'];
+        }
 
         if (empty($fields)) {
             echo json_encode(['message' => 'No changes']);

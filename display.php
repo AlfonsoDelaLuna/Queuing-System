@@ -14,10 +14,13 @@
         </header>
 
         <div class="display-grid">
-            <div class="current-serving" id="currentServing">
-                <h2>Current Number</h2>
-                <div class="big-number" id="servingNumber">--</div>
-                <div class="big-name" id="servingName">Waiting...</div>
+            <div class="serving-grid" id="servingContainer">
+                <!-- Serving items will be populated here -->
+                <div class="current-serving empty-state">
+                    <h2>Current Number</h2>
+                    <div class="big-number">--</div>
+                    <div class="big-name">Waiting...</div>
+                </div>
             </div>
 
             <div class="waiting-list-container">

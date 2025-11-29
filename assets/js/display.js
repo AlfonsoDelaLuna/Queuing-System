@@ -19,37 +19,30 @@ async function fetchQueue() {
 }
 
 function renderDisplay(items) {
-    // Find the item currently being served
-    const serving = items.find(item => item.status === 'serving');
+    // Find all items currently being served
+    const servingItems = items.filter(item => item.status === 'serving');
+    const container = document.getElementById('servingContainer');
     
-    const numberEl = document.getElementById('servingNumber');
-    const nameEl = document.getElementById('servingName');
-    const container = document.getElementById('currentServing');
-
-    if (serving) {
-        numberEl.textContent = serving.queue_number;
-        nameEl.textContent = serving.name;
-        container.style.borderColor = 'var(--success)';
-        container.style.boxShadow = '0 0 20px rgba(34, 197, 94, 0.2)';
+    if (servingItems.length > 0) {
+        container.innerHTML = servingItems.map(item => `
+            <div class="current-serving" style="border-color: var(--success); box-shadow: 0 0 20px rgba(34, 197, 94, 0.2);">
+                <h2>Now Serving</h2>
+                <div class="big-number">${item.queue_number}</div>
+                <div class="big-name">${escapeHtml(item.name)}</div>
+                <div class="counter-name">${escapeHtml(item.served_by || 'Counter 1')}</div>
+            </div>
+        `).join('');
     } else {
-        // If no one is serving, show the top alert or waiting
-        const top = items.find(item => item.status === 'alert') || items.find(item => item.status === 'waiting');
-        if (top) {
-             // Optional: Show next person if no one is serving? 
-             // Or just keep it empty. Let's keep it empty or show "Waiting..."
-             numberEl.textContent = '--';
-             nameEl.textContent = 'Waiting...';
-             container.style.borderColor = 'rgba(255, 255, 255, 0.1)';
-             container.style.boxShadow = 'none';
-        } else {
-             numberEl.textContent = '--';
-             nameEl.textContent = 'Queue Empty';
-             container.style.borderColor = 'rgba(255, 255, 255, 0.1)';
-             container.style.boxShadow = 'none';
-        }
+        container.innerHTML = `
+            <div class="current-serving empty-state">
+                <h2>Current Number</h2>
+                <div class="big-number">--</div>
+                <div class="big-name">Waiting...</div>
+            </div>
+        `;
     }
 
-    // Render the list (excluding the one being served if we want, or show all waiting/alert)
+    // Render the waiting list
     const list = document.getElementById('displayQueueList');
     const waitingItems = items.filter(item => item.status === 'waiting' || item.status === 'alert');
     

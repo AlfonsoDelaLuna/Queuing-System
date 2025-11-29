@@ -1,6 +1,15 @@
 const API_URL = 'api/queue.php';
 
 // Initial load
+const counterInput = document.getElementById('counterName');
+if (localStorage.getItem('counterName')) {
+    counterInput.value = localStorage.getItem('counterName');
+}
+
+counterInput.addEventListener('change', (e) => {
+    localStorage.setItem('counterName', e.target.value);
+});
+
 fetchQueue();
 
 // Poll every 5 seconds
@@ -50,7 +59,7 @@ function renderQueue(items) {
         <div class="queue-item status-${item.status}">
             <div class="queue-info">
                 <h3>${item.queue_number} - ${escapeHtml(item.name)}</h3>
-                <p>Status: ${item.status.toUpperCase()}</p>
+                <p>Status: ${item.status.toUpperCase()} ${item.status === 'serving' && item.served_by ? `(by ${escapeHtml(item.served_by)})` : ''}</p>
             </div>
             <div class="actions">
                 ${item.status !== 'serving' ? 
@@ -68,11 +77,18 @@ function renderQueue(items) {
 }
 
 async function updateStatus(id, status) {
+    const counterName = document.getElementById('counterName').value || 'Counter 1';
+    
+    const body = { id, status };
+    if (status === 'serving') {
+        body.served_by = counterName;
+    }
+
     try {
         await fetch(API_URL, {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ id, status })
+            body: JSON.stringify(body)
         });
         fetchQueue();
     } catch (error) {
