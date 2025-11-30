@@ -1,5 +1,4 @@
 # Queue Management System
-
 A simple, premium-looking queuing system built with PHP, MySQL, and Vanilla JS.
 
 ## Requirements
