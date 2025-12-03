@@ -2,6 +2,7 @@
 A simple, premium-looking queuing system built with PHP, MySQL, and Vanilla JS. The admin can create the queue and it will display on the queueing screen.
 
 ## Requirements
+- Web Browser
 - XAMPP (or any PHP/MySQL environment)
 - MySQL Server running on port 3306
 
