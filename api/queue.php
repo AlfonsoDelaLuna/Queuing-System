@@ -20,12 +20,8 @@ switch ($method) {
         
         // Generate a simple queue number (e.g., A-001)
         // For simplicity, we'll just use ID or a random number, but let's make it look nice
-        // Check if there are any active items (serving, waiting, or alert)
-        $stmt = $pdo->query("SELECT count(*) FROM queue_items WHERE status IN ('serving', 'waiting', 'alert')");
-        $active_count = $stmt->fetchColumn();
-        
-        // If no one is active, automatically serve this new person
-        $status = ($active_count == 0) ? 'serving' : 'waiting';
+        // Always add to waiting list first, so specific counters can pick them up
+        $status = 'waiting';
 
         $stmt = $pdo->query("SELECT count(*) FROM queue_items WHERE DATE(created_at) = CURDATE()");
         $count = $stmt->fetchColumn();

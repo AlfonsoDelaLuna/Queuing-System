@@ -2,12 +2,18 @@ const API_URL = 'api/queue.php';
 
 // Initial load
 const counterInput = document.getElementById('counterName');
-if (localStorage.getItem('counterName')) {
-    counterInput.value = localStorage.getItem('counterName');
+const isCounter2 = window.location.pathname.includes('admin2.php');
+const storageKey = isCounter2 ? 'counterName2' : 'counterName';
+const defaultName = isCounter2 ? 'Counter 2' : 'Counter 1';
+
+if (localStorage.getItem(storageKey)) {
+    counterInput.value = localStorage.getItem(storageKey);
+} else {
+    counterInput.value = defaultName;
 }
 
 counterInput.addEventListener('change', (e) => {
-    localStorage.setItem('counterName', e.target.value);
+    localStorage.setItem(storageKey, e.target.value);
 });
 
 fetchQueue();
