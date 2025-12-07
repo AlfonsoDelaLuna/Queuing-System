@@ -1,5 +1,5 @@
 # Queue Management System
-A simple, premium-looking queuing system built with PHP, MySQL, and Vanilla JS. The admin can create the queue and it will display on the queueing screen.
+A simple, premium-looking queuing system built with PHP, MySQL, and Vanilla JS. The admin can create the queue. That queue will display on the queueing screen.
 
 ## Requirements
 - Web Browser
